@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -Euo pipefail
+
+case "$1" in
+  up)
+    while true; do
+      docker-compose up --build --force-recreate --timeout 0 || true
+      sleep 1
+    done
+  ;;
+  shell)
+    while true; do
+      docker-compose exec app bash || true
+      echo ""
+      sleep 1
+    done
+  ;;
+  *)
+    echo "unknown subcommand '$1'"
+    exit 1
+  ;;
+esac
